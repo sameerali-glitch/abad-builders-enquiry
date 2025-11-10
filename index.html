@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abad Builders - Enquiries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, #1a5276 0%, #3498db 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .banner h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .banner p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .phone-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .country-code {
+            width: 140px;
+        }
+        
+        .phone-number {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #1a5276, #2980b9);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #154360, #2471a3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            border-left: 4px solid #28a745;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 600px) {
+            .banner h1 {
+                font-size: 2.2rem;
+            }
+            
+            .banner p {
+                font-size: 1.1rem;
+            }
+            
+            .container {
+                padding: 0;
+            }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+            
+            .phone-input {
+                flex-direction: column;
+            }
+            
+            .country-code {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>Abad Builders - Enquiries</h1>
+            <p>Get in touch with us for your dream home</p>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <strong>Thank you for your enquiry!</strong> We'll get back to you soon.
+        </div>
+        
+        <div class="form-container">
+            <form id="enquiryForm">
+                <div class="form-group">
+                    <label for="name" class="required">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    <div class="error" id="nameError">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="required">Phone Number</label>
+                    <div class="phone-input">
+                        <select class="country-code" id="countryCode" name="countryCode" required>
+                            <option value="">Select Country</option>
+                            <option value="+91">India (+91)</option>
+                            <option value="+966">GCC (+966)</option>
+                            <option value="+44">UK (+44)</option>
+                            <option value="+1">US (+1)</option>
+                        </select>
+                        <input type="tel" class="phone-number" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="error" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="project" class="required">Which project are you interested in?</label>
+                    <select id="project" name="project" required>
+                        <option value="">Select a project</option>
+                        <option value="Luxuria">Luxuria</option>
+                        <option value="Wood Park">Wood Park</option>
+                        <option value="Magnificent">Magnificent</option>
+                    </select>
+                    <div class="error" id="projectError">Please select a project</div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">Submit Enquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            document.querySelectorAll('.error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            // Validate form
+            let isValid = true;
+            
+            // Name validation
+            const name = document.getElementById('name').value.trim();
+            if (name === '') {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Phone validation
+            const countryCode = document.getElementById('countryCode').value;
+            const phone = document.getElementById('phone').value.trim();
+            if (countryCode === '' || phone === '') {
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Project validation
+            const project = document.getElementById('project').value;
+            if (project === '') {
+                document.getElementById('projectError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                submitFormData(name, countryCode, phone, email, project);
+            }
+        });
+        
+        function submitFormData(name, countryCode, phone, email, project) {
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Create form data
+            const formData = new URLSearchParams();
+            formData.append('name', name);
+            formData.append('countryCode', countryCode);
+            formData.append('phone', phone);
+            formData.append('email', email);
+            formData.append('project', project);
+            formData.append('timestamp', new Date().toLocaleString());
+            
+            // Your updated Google Apps Script Web App URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyTrDFY7bTz8k8Jd2SSeNntAxTcHKfsRLUMzP7ILf4rQesYgON2M3dQMrj6-v0iP7IALQ/exec';
+            
+            // Submit the form using fetch
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(data => {
+                console.log('Success:', data);
+                showSuccess();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Try alternative method if fetch fails
+                submitUsingAlternativeMethod(name, countryCode, phone, email, project);
+            });
+        }
+        
+        function submitUsingAlternativeMethod(name, countryCode, phone, email, project) {
+            // Alternative method using a hidden form
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyTrDFY7bTz8k8Jd2SSeNntAxTcHKfsRLUMzP7ILf4rQesYgON2M3dQMrj6-v0iP7IALQ/exec';
+            
+            // Create a temporary form
+            const tempForm = document.createElement('form');
+            tempForm.method = 'POST';
+            tempForm.action = scriptURL;
+            tempForm.target = 'hiddenFrame';
+            tempForm.style.display = 'none';
+            
+            // Add form data
+            const addField = (name, value) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                tempForm.appendChild(input);
+            };
+            
+            addField('name', name);
+            addField('countryCode', countryCode);
+            addField('phone', phone);
+            addField('email', email);
+            addField('project', project);
+            addField('timestamp', new Date().toLocaleString());
+            
+            // Create hidden iframe for response
+            const hiddenFrame = document.createElement('iframe');
+            hiddenFrame.name = 'hiddenFrame';
+            hiddenFrame.style.display = 'none';
+            document.body.appendChild(hiddenFrame);
+            
+            // Add form to page and submit
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            
+            // Clean up and show success after a delay
+            setTimeout(() => {
+                document.body.removeChild(tempForm);
+                document.body.removeChild(hiddenFrame);
+                showSuccess();
+            }, 2000);
+        }
+        
+        function showSuccess() {
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('enquiryForm').reset();
+            
+            // Reset button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Submit Enquiry';
+            submitBtn.disabled = false;
+            
+            // Scroll to top to show success message
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
